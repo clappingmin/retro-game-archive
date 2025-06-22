@@ -1,0 +1,14 @@
+@import '@/styles/variables';
+
+.white {
+  background-color: $white;
+  color: $black;
+
+  &:hover {
+    background-color: $color-primary-bg;
+  }
+
+  &:active {
+    background-color: $color-primary-bg-hover;
+  }
+}

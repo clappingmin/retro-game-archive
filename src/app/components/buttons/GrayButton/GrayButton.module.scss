@@ -1,0 +1,14 @@
+@import '@/styles/variables';
+
+.gray {
+  background-color: $gray-600;
+  color: $black;
+
+  &:hover {
+    background-color: $gray-700;
+  }
+
+  &:active {
+    background-color: $gray-800;
+  }
+}
