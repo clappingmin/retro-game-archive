@@ -4,7 +4,7 @@ import PrimaryButton from '../buttons/PrimaryButton/PrimaryButton';
 import GrayButton from '../buttons/GrayButton/GrayButton';
 import WhiteButton from '../buttons/WhiteButton/WhiteButton';
 
-const Header: React.FC = () => {
+export default function Header() {
   return (
     <header className={styles.wrapper}>
       <div className={styles.topContainer}>
@@ -26,6 +26,4 @@ const Header: React.FC = () => {
       </div>
     </header>
   );
-};
-
-export default Header;
+}
