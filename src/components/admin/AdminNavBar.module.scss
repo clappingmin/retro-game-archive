@@ -1,0 +1,10 @@
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  .menu {
+  }
+}
