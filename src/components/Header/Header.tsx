@@ -8,10 +8,10 @@ export default function Header() {
   return (
     <header className={styles.wrapper}>
       <div className={styles.topContainer}>
-        <span className={styles.title}>
+        <h1 className={styles.title}>
           <span className={styles.logo} />
           옛날<strong>게임</strong>나라
-        </span>
+        </h1>
         <input className={styles.searchbar}></input>
         <div className={styles.buttons}>
           <PrimaryButton>Log in</PrimaryButton>
