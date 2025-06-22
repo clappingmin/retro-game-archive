@@ -1,7 +1,12 @@
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
 :root {
+  // 런타임과 관련된 CSS 변수 지정 EX) 다크모드 테마..
   --background: #ffffff;
   --foreground: #171717;
-  --layout-width: 1080px;
+  --layout-max-width: 1080px;
+  --layout-min-width: 720px;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -23,6 +28,10 @@ body {
   font-family: --font-noto-kr;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  button {
+    cursor: pointer;
+  }
 }
 
 * {
