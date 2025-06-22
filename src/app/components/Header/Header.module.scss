@@ -1,0 +1,43 @@
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.wrapper {
+  padding: $layout-padding-desktop 0;
+  display: flex;
+  flex-direction: column;
+  gap: $layout-padding-desktop;
+
+  .topContainer {
+    display: flex;
+    justify-content: space-between;
+
+    .title {
+      font-size: $font-h4;
+      font-weight: $font-bold;
+      white-space: nowrap;
+
+      strong {
+        color: $color-primary;
+      }
+    }
+
+    input.searchbar {
+      width: 300px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+    }
+  }
+
+  .bottomContainer {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  @include mobile {
+    padding: $layout-padding-mobile 0;
+    gap: $layout-padding-mobile;
+  }
+}
