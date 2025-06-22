@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import 'reset-css';
-import '../styles/globals.scss';
+import '@/styles/globals.scss';
 import styles from './layout.module.scss';
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
+import Header from '@/components/Header/Header';
+import Footer from '@/components/Footer/Footer';
 
 export const notoSansKr = Noto_Sans_KR({
   subsets: ['latin'], // 꼭 'korean' 지정해야 한글 포함됨!
