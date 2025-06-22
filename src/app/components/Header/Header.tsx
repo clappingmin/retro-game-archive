@@ -9,6 +9,7 @@ const Header: React.FC = () => {
     <header className={styles.wrapper}>
       <div className={styles.topContainer}>
         <span className={styles.title}>
+          <span className={styles.logo} />
           옛날<strong>게임</strong>나라
         </span>
         <input className={styles.searchbar}></input>
