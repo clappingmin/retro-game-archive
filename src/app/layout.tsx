@@ -1,11 +1,14 @@
 import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import 'reset-css';
-import '../styles/globals.css';
+import '../styles/globals.scss';
+import styles from './layout.module.scss';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 
 export const notoSansKr = Noto_Sans_KR({
   subsets: ['latin'], // 꼭 'korean' 지정해야 한글 포함됨!
-  weight: ['400', '700'], // 원하는 굵기만 불러오기 (파일 용량↓)
+  weight: ['400', '500', '700'], // 원하는 굵기만 불러오기 (파일 용량↓)
   variable: '--font-noto-kr', // CSS 변수 등록 (선택)
   display: 'swap', // 글자 깜빡임 방지
 });
@@ -22,7 +25,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${notoSansKr.variable} `}>{children}</body>
+      <body className={`${notoSansKr.variable} `}>
+        <div className={styles.wrapper}>
+          <Header />
+          <div className={styles.container}>{children}</div>
+          <Footer />
+        </div>
+      </body>
     </html>
   );
 }
