@@ -2,7 +2,10 @@
 @import '@/styles/mixins';
 
 .wrapper {
-  padding: $layout-padding-desktop 0;
+  width: 100%;
+  max-width: $layout-max-width + $layout-padding-desktop * 2;
+  padding: $layout-padding-desktop;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: $layout-padding-desktop;
@@ -10,6 +13,7 @@
   .topContainer {
     display: flex;
     justify-content: space-between;
+    gap: $layout-padding-desktop;
 
     .title {
       font-size: $font-h4;
@@ -34,10 +38,18 @@
   .bottomContainer {
     display: flex;
     justify-content: flex-start;
+    gap: $layout-padding-desktop;
   }
 
   @include mobile {
-    padding: $layout-padding-mobile 0;
+    padding: $layout-padding-mobile;
     gap: $layout-padding-mobile;
+
+    .topContainer {
+      gap: $layout-padding-mobile;
+    }
+    .bottomContainer {
+      gap: $layout-padding-mobile;
+    }
   }
 }

@@ -8,6 +8,7 @@
   color: $white;
   font-weight: $font-medium;
   line-height: 100%;
+  transition: 0.2s ease-in-out;
 
   &:hover {
     background-color: $color-primary;

@@ -1,0 +1,13 @@
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.wrapper {
+  background-color: $gray-600;
+  max-width: $layout-max-width + $layout-padding-desktop * 2;
+  padding: $layout-padding-desktop;
+
+  @include mobile {
+    max-width: $layout-max-width + $layout-padding-mobile * 2;
+    padding: $layout-padding-mobile;
+  }
+}
