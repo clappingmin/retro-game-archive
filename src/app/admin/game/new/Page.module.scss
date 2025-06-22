@@ -1,0 +1,29 @@
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .title {
+    margin-bottom: 10px;
+  }
+
+  .formContainer {
+    display: flex;
+    gap: 10px;
+  }
+
+  .tagCheckboxGroup {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    .tagCheckbox {
+      display: block !important;
+      width: fit-content !important;
+    }
+  }
+}
