@@ -5,7 +5,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { GAME_TYPE_RADIO_ITEMS } from '@/shared/constants/game';
 import { TAG } from '@/shared/mocks/tag';
 import React, { useState } from 'react';
-import PrimaryButton from '@/components/buttons/PrimaryButton/PrimaryButton';
+import { Button } from '@/components/ui/button';
 
 export default function AdminNewGamePage() {
   const [preview, setPreview] = useState<string | null>(null);
@@ -78,10 +78,10 @@ export default function AdminNewGamePage() {
 
       <div className="flex gap-2">
         <input id="tag" placeholder="추가할 태그를 입력하세요." />
-        <PrimaryButton>태그 추가하기</PrimaryButton>
+        <Button variant="default">태그 추가하기</Button>
       </div>
 
-      <PrimaryButton>추가하기</PrimaryButton>
+      <Button>추가하기</Button>
     </div>
   );
 }
