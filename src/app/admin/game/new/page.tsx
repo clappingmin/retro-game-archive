@@ -70,14 +70,3 @@ export default function AdminNewGamePage() {
     </div>
   );
 }
-
-/**
-   gameType: GameType; // 게임 타입   gameFileUrl: string; // 게임 파일 URL
-
-   name: string; // 게임 이름
-   description: string; // 게임 설명
-   isFeatured: boolean; // 추천 여부
-   isActive: boolean; // 활성화 여부
-
-   tags: string[]; // 게임 태그
- */
