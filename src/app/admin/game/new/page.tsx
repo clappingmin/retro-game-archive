@@ -2,14 +2,30 @@
 import styles from './page.module.scss';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
-
 import { GAME_TYPE_RADIO_ITEMS } from '@/shared/constants/game';
 import { TAG } from '@/shared/mocks/tag';
-import React from 'react';
+import React, { useState } from 'react';
+import PrimaryButton from '@/components/buttons/PrimaryButton/PrimaryButton';
+export const dynamic = 'force-dynamic'; // 페이지가 동적이므로 캐싱하지 않도록 설정합니다.
+
 export default function AdminNewGamePage() {
+  const [preview, setPreview] = useState<string | null>(null);
+  const [thumbnail, setThumbnail] = useState<File | null>(null);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setThumbnail(file);
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => setPreview(reader.result as string);
+    }
+  };
+
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.title}>게임 추가 페이지</h1>
+      <h1 className={styles.title}>게임 추가하기</h1>
 
       {/* TODO: 게임 타입 선택 컴포넌트 분리할 지 선택하기 */}
       <RadioGroup defaultValue="flash" className="flex">
@@ -24,9 +40,9 @@ export default function AdminNewGamePage() {
       <div className={styles.formContainer}>
         <div className={styles.thumbnailWrapper}>
           <label className={styles.thumbnailWrapper} htmlFor="thumbnail">
-            {false && <img className={styles.thumbnailPreview} />}
+            {preview && <img className={styles.thumbnailPreview} src={preview} />}
           </label>
-          <input id="thumbnail" type="file" accept="image/*" />
+          <input id="thumbnail" type="file" accept="image/*" onChange={handleImageChange} />
         </div>
         <div className={styles.inputContainer}>
           <div className={styles.inputBox}>
@@ -51,20 +67,22 @@ export default function AdminNewGamePage() {
           </div>
         </div>
       </div>
-      <div className={styles.tagContainer}>
-        <form>
-          {TAG.map((tag, index) => (
-            <div className="flex items-center gap-3" key={index}>
-              <Checkbox id={`tag-${tag}`} />
-              <label htmlFor={`tag-${tag}`}>{tag}</label>
-            </div>
-          ))}
-        </form>
-      </div>
-      <div className={styles.inputBox}>
-        <label htmlFor="tag">새로운 태그 추가</label>
+
+      <form className="flex gap-2 flex-wrap">
+        {TAG.map((tag, index) => (
+          <div className="flex items-center gap-3 w-fit whitespace-nowrap" key={index}>
+            <Checkbox id={`tag-${tag}`} />
+            <label htmlFor={`tag-${tag}`}>{tag}</label>
+          </div>
+        ))}
+      </form>
+
+      <div className="flex gap-2">
         <input id="tag" placeholder="추가할 태그를 입력하세요." />
+        <PrimaryButton>태그 추가하기</PrimaryButton>
       </div>
+
+      <PrimaryButton>추가하기</PrimaryButton>
     </div>
   );
 }

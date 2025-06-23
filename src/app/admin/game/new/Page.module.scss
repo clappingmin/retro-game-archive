@@ -15,17 +15,42 @@
   .formContainer {
     display: flex;
     gap: 10px;
-  }
 
-  .tagCheckboxGroup {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 10px;
+    .thumbnailWrapper {
+      flex: 0 0 400px;
+      aspect-ratio: 16/9;
+      border: 1px solid $gray-700;
 
-    .tagCheckbox {
-      display: block;
-      width: fit-content;
+      label {
+        display: block;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      input {
+        display: none;
+      }
+    }
+
+    .inputContainer {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .inputBox {
+        display: flex;
+        white-space: wrap;
+        align-items: flex-start;
+        gap: 10px;
+      }
     }
   }
 }
