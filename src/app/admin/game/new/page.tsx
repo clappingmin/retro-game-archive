@@ -1,6 +1,4 @@
 'use client';
-
-import { RadioGroup, Checkbox, CheckboxGroup } from '@chakra-ui/react';
 import styles from './page.module.scss';
 import { GAME_TYPE_RADIO_ITEMS } from '@/shared/constants/game';
 import { TAG } from '@/shared/mocks/tag';
@@ -10,7 +8,7 @@ export default function AdminNewGamePage() {
     <div className={styles.wrapper}>
       <h1 className={styles.title}>게임 추가 페이지</h1>
       {/* TODO: 게임 타입 선택 컴포넌트 분리할 지 선택하기 */}
-      <RadioGroup.Root defaultValue="flash">
+      {/* <RadioGroup.Root defaultValue="flash">
         {GAME_TYPE_RADIO_ITEMS.map((item) => (
           <RadioGroup.Item key={item.value} value={item.value}>
             <RadioGroup.ItemHiddenInput />
@@ -18,7 +16,7 @@ export default function AdminNewGamePage() {
             <RadioGroup.ItemText>{item.label}</RadioGroup.ItemText>
           </RadioGroup.Item>
         ))}
-      </RadioGroup.Root>
+      </RadioGroup.Root> */}
       <input type="file" />
       <div className={styles.formContainer}>
         <div className={styles.thumbnailWrapper}>
@@ -40,7 +38,7 @@ export default function AdminNewGamePage() {
             <label htmlFor="company">게임 회사</label>
             <input id="company" placeholder="게임 회사를 입력하세요." />
           </div>
-          <Checkbox.Root defaultChecked>
+          {/* <Checkbox.Root defaultChecked>
             <Checkbox.HiddenInput />
             <Checkbox.Label>활성화</Checkbox.Label>
             <Checkbox.Control />
@@ -49,11 +47,11 @@ export default function AdminNewGamePage() {
             <Checkbox.HiddenInput />
             <Checkbox.Label>추천</Checkbox.Label>
             <Checkbox.Control />
-          </Checkbox.Root>
+          </Checkbox.Root> */}
         </div>
       </div>
       <div className={styles.tagContainer}>
-        <CheckboxGroup defaultValue={['슈게임']} className={styles.tagCheckboxGroup}>
+        {/* <CheckboxGroup defaultValue={['슈게임']} className={styles.tagCheckboxGroup}>
           {TAG.map((tag, index) => (
             <Checkbox.Root key={index} value={tag} className={styles.tagCheckbox}>
               <Checkbox.HiddenInput />
@@ -61,7 +59,7 @@ export default function AdminNewGamePage() {
               <Checkbox.Control />
             </Checkbox.Root>
           ))}
-        </CheckboxGroup>
+        </CheckboxGroup> */}
       </div>
       <div className={styles.inputBox}>
         <label htmlFor="tag">새로운 태그 추가</label>

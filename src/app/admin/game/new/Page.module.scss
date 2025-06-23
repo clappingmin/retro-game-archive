@@ -8,6 +8,8 @@
 
   .title {
     margin-bottom: 10px;
+    font-size: $font-h5;
+    font-weight: $font-bold;
   }
 
   .formContainer {
@@ -22,8 +24,8 @@
     gap: 10px;
 
     .tagCheckbox {
-      display: block !important;
-      width: fit-content !important;
+      display: block;
+      width: fit-content;
     }
   }
 }

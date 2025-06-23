@@ -5,7 +5,6 @@ import '@/styles/globals.scss';
 import styles from './layout.module.scss';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
-import { Provider } from '@/components/ui/provider';
 
 export const notoSansKr = Noto_Sans_KR({
   subsets: ['latin'], // 꼭 'korean' 지정해야 한글 포함됨!
@@ -25,15 +24,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" suppressHydrationWarning>
+    <html lang="ko">
       <body className={`${notoSansKr.variable} `}>
-        <Provider>
-          <div className={styles.wrapper}>
-            <Header />
-            <div className={styles.container}>{children}</div>
-            <Footer />
-          </div>
-        </Provider>
+        <div className={styles.wrapper}>
+          <Header />
+          <div className={styles.container}>{children}</div>
+          <Footer />
+        </div>
       </body>
     </html>
   );
