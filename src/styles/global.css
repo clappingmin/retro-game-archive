@@ -65,4 +65,10 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  @layer components {
+    .layout {
+      @apply mx-auto flex w-full max-w-[1080px] flex-col px-6 py-4;
+    }
+  }
 }

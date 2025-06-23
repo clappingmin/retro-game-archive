@@ -1,6 +1,9 @@
 import React from 'react';
-import styles from './Footer.module.scss';
 
 export default function Footer() {
-  return <footer className={styles.wrapper}>푸터</footer>;
+  return (
+    <footer className="w-full bg-gray-200">
+      <div className="layout">푸터</div>
+    </footer>
+  );
 }
