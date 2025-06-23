@@ -36,6 +36,10 @@ export default function AdminNewGamePage() {
             <label htmlFor="description">게임 설명</label>
             <textarea id="description" placeholder="게임 설명을 입력하세요." />
           </div>
+          <div className={styles.inputBox}>
+            <label htmlFor="company">게임 회사</label>
+            <input id="company" placeholder="게임 회사를 입력하세요." />
+          </div>
           <Checkbox.Root defaultChecked>
             <Checkbox.HiddenInput />
             <Checkbox.Label>활성화</Checkbox.Label>
