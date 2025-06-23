@@ -1,5 +1,8 @@
 'use client';
 import styles from './page.module.scss';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Checkbox } from '@/components/ui/checkbox';
+
 import { GAME_TYPE_RADIO_ITEMS } from '@/shared/constants/game';
 import { TAG } from '@/shared/mocks/tag';
 import React from 'react';
@@ -7,16 +10,16 @@ export default function AdminNewGamePage() {
   return (
     <div className={styles.wrapper}>
       <h1 className={styles.title}>게임 추가 페이지</h1>
+
       {/* TODO: 게임 타입 선택 컴포넌트 분리할 지 선택하기 */}
-      {/* <RadioGroup.Root defaultValue="flash">
+      <RadioGroup defaultValue="flash" className="flex">
         {GAME_TYPE_RADIO_ITEMS.map((item) => (
-          <RadioGroup.Item key={item.value} value={item.value}>
-            <RadioGroup.ItemHiddenInput />
-            <RadioGroup.ItemIndicator />
-            <RadioGroup.ItemText>{item.label}</RadioGroup.ItemText>
-          </RadioGroup.Item>
+          <div className="flex items-center gap-3" key={item.value}>
+            <RadioGroupItem value={item.value} id={item.value} />
+            <label htmlFor={item.value}>{item.label}</label>
+          </div>
         ))}
-      </RadioGroup.Root> */}
+      </RadioGroup>
       <input type="file" />
       <div className={styles.formContainer}>
         <div className={styles.thumbnailWrapper}>
@@ -38,28 +41,25 @@ export default function AdminNewGamePage() {
             <label htmlFor="company">게임 회사</label>
             <input id="company" placeholder="게임 회사를 입력하세요." />
           </div>
-          {/* <Checkbox.Root defaultChecked>
-            <Checkbox.HiddenInput />
-            <Checkbox.Label>활성화</Checkbox.Label>
-            <Checkbox.Control />
-          </Checkbox.Root>
-          <Checkbox.Root>
-            <Checkbox.HiddenInput />
-            <Checkbox.Label>추천</Checkbox.Label>
-            <Checkbox.Control />
-          </Checkbox.Root> */}
+          <div className="flex items-center gap-3">
+            <Checkbox id="isActive" defaultChecked />
+            <label htmlFor="isActive">활성화</label>
+          </div>
+          <div className="flex items-center gap-3">
+            <Checkbox id="isFeatured" />
+            <label htmlFor="isFeatured">추천</label>
+          </div>
         </div>
       </div>
       <div className={styles.tagContainer}>
-        {/* <CheckboxGroup defaultValue={['슈게임']} className={styles.tagCheckboxGroup}>
+        <form>
           {TAG.map((tag, index) => (
-            <Checkbox.Root key={index} value={tag} className={styles.tagCheckbox}>
-              <Checkbox.HiddenInput />
-              <Checkbox.Label>{tag}</Checkbox.Label>
-              <Checkbox.Control />
-            </Checkbox.Root>
+            <div className="flex items-center gap-3" key={index}>
+              <Checkbox id={`tag-${tag}`} />
+              <label htmlFor={`tag-${tag}`}>{tag}</label>
+            </div>
           ))}
-        </CheckboxGroup> */}
+        </form>
       </div>
       <div className={styles.inputBox}>
         <label htmlFor="tag">새로운 태그 추가</label>

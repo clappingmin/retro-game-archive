@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import 'reset-css';
 import '@/styles/globals.scss';
+import '@/styles/global.css';
 import styles from './layout.module.scss';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
