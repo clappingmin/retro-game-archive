@@ -1,5 +1,3 @@
-import { Timestamp } from 'firebase/firestore';
-
 export type GameType = 'flash' | 'html5' | 'other';
 
 export interface GameBase {
@@ -12,8 +10,9 @@ export interface GameBase {
   isFeatured: boolean; // 추천 여부
   thumbnailUrl: string; // 썸네일 이미지 URL
   isActive: boolean; // 활성화 여부
-  createdAt: Timestamp; // 생성일
-  updatedAt: Timestamp; // 수정일
+  company: string; // 게임 회사
+  createdAt: Date; // 생성일
+  updatedAt: Date; // 수정일
 }
 
 export interface GameFormData extends GameBase {
