@@ -6,7 +6,6 @@ import { GAME_TYPE_RADIO_ITEMS } from '@/shared/constants/game';
 import { TAG } from '@/shared/mocks/tag';
 import React, { useState } from 'react';
 import PrimaryButton from '@/components/buttons/PrimaryButton/PrimaryButton';
-export const dynamic = 'force-dynamic'; // 페이지가 동적이므로 캐싱하지 않도록 설정합니다.
 
 export default function AdminNewGamePage() {
   const [preview, setPreview] = useState<string | null>(null);
@@ -68,9 +67,9 @@ export default function AdminNewGamePage() {
         </div>
       </div>
 
-      <form className="flex gap-2 flex-wrap">
+      <form className="flex flex-wrap gap-2">
         {TAG.map((tag, index) => (
-          <div className="flex items-center gap-3 w-fit whitespace-nowrap" key={index}>
+          <div className="flex w-fit items-center gap-3 whitespace-nowrap" key={index}>
             <Checkbox id={`tag-${tag}`} />
             <label htmlFor={`tag-${tag}`}>{tag}</label>
           </div>
