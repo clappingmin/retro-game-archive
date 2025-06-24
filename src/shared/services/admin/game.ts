@@ -1,5 +1,5 @@
-import { supabase } from '../libs/supabase';
-import { GameTag } from '../types/game';
+import { supabase } from '../../libs/supabase';
+import { GameTag } from '../../types/game';
 /**
  *
  * @param {string} newTag

@@ -6,7 +6,7 @@ import { GAME_CATEGORY_KOREAN, GAME_TYPE_RADIO_ITEMS } from '@/shared/constants/
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { GameCategory, GameTag, GameType } from '@/shared/types/game';
-import * as api from '@/shared/services/game';
+import * as api from '@/shared/services/admin/game';
 
 export default function AdminNewGamePage() {
   const [gameType, setGameType] = useState<GameType>('flash');
