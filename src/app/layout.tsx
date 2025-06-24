@@ -21,7 +21,7 @@ export default function RootLayout({
       <body>
         <div className={styles.wrapper}>
           <Header />
-          <div className={styles.container}>{children}</div>
+          <div className="layout flex-1">{children}</div>
           <Footer />
         </div>
       </body>
