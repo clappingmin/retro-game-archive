@@ -1,12 +1,15 @@
 import React from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '../ui/button';
+import Link from 'next/link';
 
 export default function Header() {
   return (
     <header className="layout">
       <div className="flex items-center justify-between gap-4">
-        <h1 className="whitespace-nowrap text-2xl font-bold">플래시어블</h1>
+        <Link href={'/'}>
+          <h1 className="whitespace-nowrap text-2xl font-bold">플래시니티</h1>
+        </Link>
         <Input className="max-w-xs" />
         <div className="flex items-center gap-2">
           <Button>Log in</Button>

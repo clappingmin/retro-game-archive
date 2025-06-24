@@ -25,9 +25,6 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: --font-noto-kr;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 
   button {
     cursor: pointer;
