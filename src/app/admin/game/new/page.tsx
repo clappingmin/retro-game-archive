@@ -5,12 +5,13 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { GAME_CATEGORY_KOREAN, GAME_TYPE_RADIO_ITEMS } from '@/shared/constants/game';
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { GameCategory, GameTag, GameType } from '@/shared/types/game';
+import { GameBase, GameCategory, GameStorageData, GameTag, GameType } from '@/shared/types/game';
 import * as api from '@/shared/services/admin/game';
 
 export default function AdminNewGamePage() {
   const [gameType, setGameType] = useState<GameType>('flash');
   const [category, setCategory] = useState<GameCategory>('puzzle_board');
+  const [gameFile, setGameFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [name, setName] = useState<string>('');
@@ -25,6 +26,11 @@ export default function AdminNewGamePage() {
   useEffect(() => {
     api.getTags().then(setAllTags);
   }, []);
+
+  const handleGameFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) setGameFile(file);
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -43,13 +49,39 @@ export default function AdminNewGamePage() {
 
       // 디비에 새태그 저장
       await api.addGameTag(newTag);
-      setTags((prevTags) => [...prevTags, newTag]);
+      setAllTags((prevTags: GameTag[]) => [...prevTags, { id: 'new', name: newTag }]);
       setNewTag('');
     } catch (error) {
       console.error('태그 추가 실패:', error);
     }
   };
 
+  const handleChangeTag = (tag: string) => {
+    setTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
+  };
+
+  const handleAddNewGame = async () => {
+    if (!gameFile || !thumbnail) return;
+
+    const newGame: GameBase = {
+      gameType,
+      category,
+      tags,
+      name,
+      description,
+      viewCount: 0,
+      isFeatured,
+      isActive,
+      company,
+    };
+
+    const storageDate: GameStorageData = {
+      thumbnail,
+      gameFile,
+    };
+
+    await api.addNewGame(newGame, storageDate);
+  };
   return (
     <div className={styles.wrapper}>
       <h1 className={styles.title}>게임 추가하기</h1>
@@ -83,7 +115,9 @@ export default function AdminNewGamePage() {
         ))}
       </RadioGroup>
 
-      <input type="file" />
+      {/* 게임 파일 */}
+      <input type="file" onChange={handleGameFileChange} />
+
       <div className={styles.formContainer}>
         <div className={styles.thumbnailWrapper}>
           {/* 게임 썸네일 */}
@@ -152,7 +186,11 @@ export default function AdminNewGamePage() {
       <form className="flex flex-wrap gap-2">
         {allTags.map((tag) => (
           <div className="flex w-fit items-center gap-3 whitespace-nowrap" key={tag.id}>
-            <Checkbox id={`tag-${tag.id}`} />
+            <Checkbox
+              id={`tag-${tag.id}`}
+              checked={tags.includes(tag.name)}
+              onCheckedChange={() => handleChangeTag(tag.name)}
+            />
             <label htmlFor={`tag-${tag.id}`}>{tag.name}</label>
           </div>
         ))}
@@ -170,7 +208,7 @@ export default function AdminNewGamePage() {
         </Button>
       </div>
 
-      <Button>추가하기</Button>
+      <Button onClick={handleAddNewGame}>추가하기</Button>
     </div>
   );
 }

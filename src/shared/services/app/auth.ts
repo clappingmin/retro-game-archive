@@ -13,13 +13,13 @@ export async function loginUser(email: string, password: string) {
   }
 }
 
-export async function getLoginSession() {
+export async function getAccessToken() {
   try {
     const {
       data: { session },
     } = await supabase.auth.getSession();
 
-    console.log(session?.access_token);
+    return session?.access_token;
   } catch (error: unknown) {
     throw error;
   }

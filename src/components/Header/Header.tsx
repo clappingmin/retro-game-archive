@@ -1,7 +1,10 @@
+'use client';
+
 import React from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '../ui/button';
 import Link from 'next/link';
+import * as api from '@/shared/services/app/auth';
 
 export default function Header() {
   return (
@@ -12,7 +15,9 @@ export default function Header() {
         </Link>
         <Input className="max-w-xs" />
         <div className="flex items-center gap-2">
-          <Button>Log in</Button>
+          <Link href={'/auth/login'}>
+            <Button>Log in</Button>
+          </Link>
           <Button variant="secondary">Sign up</Button>
         </div>
       </div>
@@ -21,6 +26,7 @@ export default function Header() {
         <Button variant="ghost">로이월드</Button>
         <Button variant="ghost">쥬쥬게임</Button>
         <Button variant="ghost">비비빅</Button>
+        <Button onClick={api.getAccessToken}>세션 확인</Button>
       </div>
     </header>
   );

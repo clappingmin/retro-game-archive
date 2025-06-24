@@ -1,8 +1,8 @@
 import { redirect } from 'next/navigation';
-import { createClient } from '@/shared/utils/supabase/server';
+import { createServer } from '@/shared/utils/supabase/server';
 
 export default async function AuthIndexPage() {
-  const supabase = await createClient();
+  const supabase = await createServer();
 
   const {
     data: { session },
