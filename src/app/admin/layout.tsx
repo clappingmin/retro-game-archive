@@ -1,11 +1,10 @@
 import AdminNavBar from '@/components/admin/AdminNavBar';
-import styles from './layout.module.scss';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={styles.wrapper}>
+    <div className="flex w-full min-w-[720px] gap-8">
       <AdminNavBar />
-      <div className={styles.content}>{children}</div>
+      <div className="flex-1">{children}</div>
     </div>
   );
 }
