@@ -32,3 +32,8 @@ export interface Game extends GameBase {
   createdAt: Date; // 생성일
   updatedAt: Date; // 수정일
 }
+
+export interface GameTag {
+  id: string;
+  name: string;
+}

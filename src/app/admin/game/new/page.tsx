@@ -3,10 +3,10 @@ import styles from './page.module.scss';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
 import { GAME_CATEGORY_KOREAN, GAME_TYPE_RADIO_ITEMS } from '@/shared/constants/game';
-import { MOCK_TAG } from '@/shared/mocks/tag';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { GameCategory, GameType } from '@/shared/types/game';
+import { GameCategory, GameTag, GameType } from '@/shared/types/game';
+import * as api from '@/shared/services/game';
 
 export default function AdminNewGamePage() {
   const [gameType, setGameType] = useState<GameType>('flash');
@@ -18,8 +18,13 @@ export default function AdminNewGamePage() {
   const [company, setCompany] = useState<string>('');
   const [isActive, setIsActive] = useState<boolean>(true);
   const [isFeatured, setIsFeatured] = useState<boolean>(false);
-  const [tags, setTags] = useState<string[]>([]);
-  const [newTag, setNewTag] = useState<string>('');
+  const [tags, setTags] = useState<string[]>([]); // 게임 태그
+  const [allTags, setAllTags] = useState<GameTag[]>([]); // 디비에 저장된 모든 태그
+  const [newTag, setNewTag] = useState<string>(''); // 디비에 추가할 태그
+
+  useEffect(() => {
+    api.getTags().then(setAllTags);
+  }, []);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -32,11 +37,17 @@ export default function AdminNewGamePage() {
     }
   };
 
-  const handleNewTag = () => {
-    if (!newTag) return;
+  const handleNewTag = async () => {
+    try {
+      if (!newTag) return;
 
-    setTags((prevTags) => [...prevTags, newTag]);
-    setNewTag('');
+      // 디비에 새태그 저장
+      await api.addGameTag(newTag);
+      setTags((prevTags) => [...prevTags, newTag]);
+      setNewTag('');
+    } catch (error) {
+      console.error('태그 추가 실패:', error);
+    }
   };
 
   return (
@@ -139,10 +150,10 @@ export default function AdminNewGamePage() {
 
       {/* 게임 태그 선택 */}
       <form className="flex flex-wrap gap-2">
-        {tags.map((tag, index) => (
-          <div className="flex w-fit items-center gap-3 whitespace-nowrap" key={index}>
-            <Checkbox id={`tag-${tag}`} />
-            <label htmlFor={`tag-${tag}`}>{tag}</label>
+        {allTags.map((tag) => (
+          <div className="flex w-fit items-center gap-3 whitespace-nowrap" key={tag.id}>
+            <Checkbox id={`tag-${tag.id}`} />
+            <label htmlFor={`tag-${tag.id}`}>{tag.name}</label>
           </div>
         ))}
       </form>
