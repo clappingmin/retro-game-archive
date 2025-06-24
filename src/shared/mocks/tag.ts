@@ -1,4 +1,4 @@
-export const TAG = [
+export const MOCK_TAG = [
   '슈게임',
   '슈팅',
   '플래시',
