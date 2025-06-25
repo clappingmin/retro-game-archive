@@ -2,15 +2,14 @@
 import styles from './page.module.scss';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
-import { GAME_CATEGORY_KOREAN, GAME_TYPE_RADIO_ITEMS } from '@/shared/constants/game';
+import { GAME_TYPE_RADIO_ITEMS } from '@/shared/constants/game';
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { GameBase, GameCategory, GameStorageData, GameTag, GameType } from '@/shared/types/game';
+import { GameBase, GameStorageData, GameTag, GameType } from '@/shared/types/game';
 import * as api from '@/shared/services/admin/game';
 
 export default function AdminNewGamePage() {
   const [gameType, setGameType] = useState<GameType>('flash');
-  const [category, setCategory] = useState<GameCategory>('puzzle_board');
   const [gameFile, setGameFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [thumbnail, setThumbnail] = useState<File | null>(null);
@@ -65,7 +64,6 @@ export default function AdminNewGamePage() {
 
     const newGame: GameBase = {
       gameType,
-      category,
       tags,
       name,
       description,
@@ -97,20 +95,6 @@ export default function AdminNewGamePage() {
           <div className="flex items-center gap-3" key={item.value}>
             <RadioGroupItem value={item.value} id={item.value} />
             <label htmlFor={item.value}>{item.label}</label>
-          </div>
-        ))}
-      </RadioGroup>
-
-      {/* 게임 카테고리 */}
-      <RadioGroup
-        defaultValue={category}
-        className="flex"
-        onValueChange={(value: GameCategory) => setCategory(value)}
-      >
-        {Object.entries(GAME_CATEGORY_KOREAN).map(([key, value]) => (
-          <div className="flex items-center gap-3" key={key}>
-            <RadioGroupItem value={key} id={key} />
-            <label htmlFor={key}>{value}</label>
           </div>
         ))}
       </RadioGroup>

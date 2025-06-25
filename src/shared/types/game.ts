@@ -11,7 +11,6 @@ export type GameCategory =
 
 export interface GameBase {
   gameType: GameType; // 게임 타입
-  category: GameCategory; // 게임 카테고리
   tags: string[]; // 게임 태그
   name: string; // 게임 이름
   description: string; // 게임 설명
