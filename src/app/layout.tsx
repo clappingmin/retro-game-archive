@@ -3,8 +3,8 @@ import 'reset-css';
 import '@/styles/globals.scss';
 import '@/styles/global.css';
 import styles from './layout.module.scss';
-import Header from '@/components/Header/Header';
-import Footer from '@/components/Footer/Footer';
+import Header from '@/components/global/Header';
+import Footer from '@/components/global/Footer';
 
 export const metadata: Metadata = {
   title: '플래시니티',
