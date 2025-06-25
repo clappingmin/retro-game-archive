@@ -1,16 +1,15 @@
 'use client';
-
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 import * as api from '@/shared/services/app/auth';
 
-export default function LoginPage() {
+export default function SignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
-    await api.loginUser(email, password);
+  const handleSignup = async () => {
+    await api.signupUser(email, password);
   };
 
   return (
@@ -27,7 +26,7 @@ export default function LoginPage() {
         onChange={(e) => setPassword(e.target.value)}
         type="password"
       />
-      <Button onClick={handleLogin}>Login</Button>
+      <Button onClick={handleSignup}>Signup</Button>
     </div>
   );
 }
