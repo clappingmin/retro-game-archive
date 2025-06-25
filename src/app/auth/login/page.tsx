@@ -4,13 +4,15 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 import * as api from '@/shared/services/app/auth';
+import { LoginInput } from '@/shared/types/user';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
-    await api.loginUser(email, password);
+    const userInput: LoginInput = { email, password };
+    await api.loginUser(userInput);
   };
 
   return (

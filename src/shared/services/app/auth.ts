@@ -1,7 +1,10 @@
+import { LoginInput, SignupInput } from '@/shared/types/user';
 import { supabase } from '@/shared/utils/supabase/client';
 
-export async function loginUser(email: string, password: string) {
+export async function loginUser(userInput: LoginInput) {
   try {
+    const { email, password } = userInput;
+
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -15,16 +18,26 @@ export async function loginUser(email: string, password: string) {
   }
 }
 
-export async function signupUser(email: string, password: string) {
+export async function signupUser(userInput: SignupInput) {
   try {
+    const { nickname, email, password } = userInput;
+
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
     });
 
+    if (error) throw error;
+
+    const { error: updateError } = await supabase.auth.updateUser({
+      data: { nickname },
+    });
+
+    if (updateError) throw updateError;
+
     // TODO: data 유저정보 전역 상태로 저장
 
-    if (error) throw error;
+    return true;
   } catch (error: unknown) {
     throw error;
   }
