@@ -1,4 +1,5 @@
-import { LoginInput, SignupInput } from '@/shared/types/user';
+import { setLoggedInUser } from '@/shared/store/user';
+import { LoginInput, SignupInput, User } from '@/shared/types/user';
 import { supabase } from '@/shared/utils/supabase/client';
 
 export async function loginUser(userInput: LoginInput) {
@@ -10,9 +11,24 @@ export async function loginUser(userInput: LoginInput) {
       password,
     });
 
-    // TODO: data 유저정보 전역 상태로 저장
-
     if (error) throw error;
+
+    const {
+      user: {
+        id,
+        user_metadata: { nickname },
+      },
+    } = data;
+
+    const user: User = {
+      uid: id,
+      nickname: nickname,
+      email,
+    };
+
+    setLoggedInUser(user);
+
+    return true;
   } catch (error: unknown) {
     throw error;
   }

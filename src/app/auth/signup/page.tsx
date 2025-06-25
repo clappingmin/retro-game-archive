@@ -1,7 +1,7 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as api from '@/shared/services/app/auth';
 import { SignupInput } from '@/shared/types/user';
 import { redirect } from 'next/navigation';
@@ -10,6 +10,10 @@ export default function SignupPage() {
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    // TODO: 로그인 상태시 홈으로
+  }, []);
 
   const handleSignup = async () => {
     const userInput: SignupInput = { nickname, email, password };

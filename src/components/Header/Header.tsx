@@ -5,8 +5,11 @@ import { Input } from '@/components/ui/input';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 import * as api from '@/shared/services/app/auth';
+import { useUserStore } from '@/shared/store/user';
 
 export default function Header() {
+  const user = useUserStore((state) => state.user);
+  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
   return (
     <header className="layout">
       <div className="flex items-center justify-between gap-4">
@@ -15,10 +18,20 @@ export default function Header() {
         </Link>
         <Input className="max-w-xs" />
         <div className="flex items-center gap-2">
-          <Link href={'/auth/login'}>
-            <Button>Log in</Button>
-          </Link>
-          <Button variant="secondary">Sign up</Button>
+          {isLoggedIn ? (
+            <Button variant="secondary" onClick={api.logoutUser}>
+              Log out
+            </Button>
+          ) : (
+            <>
+              <Link href={'/auth/login'}>
+                <Button>Log in</Button>
+              </Link>
+              <Link href={'/auth/signup'}>
+                <Button variant="secondary">Sign up</Button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
       <div className="flex justify-start gap-2">
@@ -26,7 +39,6 @@ export default function Header() {
         <Button variant="ghost">로이월드</Button>
         <Button variant="ghost">쥬쥬게임</Button>
         <Button variant="ghost">비비빅</Button>
-        <Button onClick={api.getAccessToken}>세션 확인</Button>
       </div>
     </header>
   );

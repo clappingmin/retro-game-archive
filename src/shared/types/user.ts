@@ -8,3 +8,9 @@ export interface SignupInput {
   email: string;
   password: string;
 }
+
+export interface User {
+  uid: string;
+  nickname: string;
+  email: string;
+}
