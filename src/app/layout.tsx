@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import 'reset-css';
 import '@/styles/globals.scss';
 import '@/styles/global.css';
-import styles from './layout.module.scss';
 import Header from '@/components/global/Header';
 import Footer from '@/components/global/Footer';
+import SessionWatcher from '@/components/global/SessionWatcher';
 
 export const metadata: Metadata = {
   title: '플래시니티',
@@ -19,7 +19,8 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <div className={styles.wrapper}>
+        <SessionWatcher />
+        <div className="flex min-h-screen w-screen flex-col bg-[url('/images/layout-bg.svg')] bg-contain bg-no-repeat [background-position:top_right]">
           <Header />
           <div className="layout flex-1">{children}</div>
           <Footer />

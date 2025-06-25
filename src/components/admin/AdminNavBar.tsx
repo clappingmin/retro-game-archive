@@ -1,9 +1,8 @@
-import styles from './AdminNavBar.module.scss';
 import Link from 'next/link';
 
 export default function AdminNavBar() {
   return (
-    <div className={styles.wrapper}>
+    <div className="flex-0 flex flex-col">
       <Link href={'/admin'} className="menu">
         어드민 메인
       </Link>
