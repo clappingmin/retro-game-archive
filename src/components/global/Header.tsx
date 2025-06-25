@@ -1,15 +1,37 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 import * as api from '@/shared/services/app/auth';
 import { useUserStore } from '@/shared/store/user';
+import { useAuth } from '@/shared/hooks/useAuth';
+import { usePathname } from 'next/navigation';
 
 export default function Header() {
-  const user = useUserStore((state) => state.user);
+  const pathname = usePathname();
+
   const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+  const [isHydrated, setIsHydrated] = useState(false);
+  const { logout } = useAuth();
+
+  useEffect(() => setIsHydrated(true), []);
+  if (!isHydrated) return null;
+
+  const handleLogout = async () => {
+    const result = await api.logoutUser();
+    if (result) logout();
+  };
+
+  const handleAuthRouter = () => {
+    const isAuthRoute = /^\/auth(\/|$)/.test(pathname);
+
+    if (isAuthRoute) return '/';
+
+    return encodeURIComponent(pathname);
+  };
+
   return (
     <header className="layout">
       <div className="flex items-center justify-between gap-4">
@@ -19,15 +41,15 @@ export default function Header() {
         <Input className="max-w-xs" />
         <div className="flex items-center gap-2">
           {isLoggedIn ? (
-            <Button variant="secondary" onClick={api.logoutUser}>
+            <Button variant="secondary" onClick={handleLogout}>
               Log out
             </Button>
           ) : (
             <>
-              <Link href={'/auth/login'}>
+              <Link href={`/auth/login?redirect=${handleAuthRouter()}`}>
                 <Button>Log in</Button>
               </Link>
-              <Link href={'/auth/signup'}>
+              <Link href={`/auth/signup?redirect=${handleAuthRouter()}`}>
                 <Button variant="secondary">Sign up</Button>
               </Link>
             </>

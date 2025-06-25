@@ -5,22 +5,37 @@ import { Input } from '@/components/ui/input';
 import { useEffect, useState } from 'react';
 import * as api from '@/shared/services/app/auth';
 import { LoginInput } from '@/shared/types/user';
-import { redirect } from 'next/navigation';
+import { useAuth } from '@/shared/hooks/useAuth';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useUserStore } from '@/shared/store/user';
 
 export default function LoginPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  useEffect(() => {
-    // TODO: 로그인 상태시 홈으로
-  }, []);
+  const { login } = useAuth();
+  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
 
   const handleLogin = async () => {
     const userInput: LoginInput = { email, password };
-    const result = await api.loginUser(userInput);
+    const user = await api.loginUser(userInput);
 
-    if (result) redirect('/');
+    if (!user) {
+      // TODO: 안된 이유 띄우기
+      return;
+    }
+
+    login(user);
   };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      const redirectPath = searchParams.get('redirect') || '/';
+      router.replace(redirectPath);
+    }
+  }, [isLoggedIn]);
 
   return (
     <div>

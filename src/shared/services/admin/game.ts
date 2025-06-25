@@ -1,7 +1,7 @@
 import { createAuthedClient, supabase } from '@/shared/utils/supabase/client';
 import { Game, GameBase, GameStorageData, GameTag, GameType } from '@/shared/types/game';
 import { v4 as uuidv4 } from 'uuid';
-import { getAccessToken } from '../app/auth';
+import { getSession } from '../app/auth';
 import { redirect } from 'next/navigation';
 
 /**
@@ -78,11 +78,10 @@ export async function uploadGameThumbnail(
     const filename = `thumbnail-${gameId}.${ext}`;
     const path = `${gameType}/${filename}`;
 
-    const accessToken = await getAccessToken();
+    const session = await getSession();
+    if (!session) redirect('/auth/login');
 
-    if (!accessToken) redirect('/auth/login');
-
-    const supabaseWithToken = createAuthedClient(accessToken);
+    const supabaseWithToken = createAuthedClient(session.access_token);
 
     const { error } = await supabaseWithToken.storage
       .from('game-thumbnails')
@@ -117,11 +116,11 @@ export async function uploadGameFile(
     const filename = `file-${gameId}.${ext}`;
     const path = `${gameType}/${filename}`;
 
-    const accessToken = await getAccessToken();
+    const session = await getSession();
 
-    if (!accessToken) redirect('/auth/login');
+    if (!session) redirect('/auth/login');
 
-    const supabaseWithToken = createAuthedClient(accessToken);
+    const supabaseWithToken = createAuthedClient(session.access_token);
 
     const { error } = await supabaseWithToken.storage
       .from('game-files')

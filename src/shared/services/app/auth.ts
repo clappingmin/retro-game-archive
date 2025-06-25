@@ -1,8 +1,7 @@
-import { setLoggedInUser } from '@/shared/store/user';
 import { LoginInput, SignupInput, User } from '@/shared/types/user';
 import { supabase } from '@/shared/utils/supabase/client';
 
-export async function loginUser(userInput: LoginInput) {
+export async function loginUser(userInput: LoginInput): Promise<User> {
   try {
     const { email, password } = userInput;
 
@@ -22,19 +21,17 @@ export async function loginUser(userInput: LoginInput) {
 
     const user: User = {
       uid: id,
-      nickname: nickname,
+      nickname,
       email,
     };
 
-    setLoggedInUser(user);
-
-    return true;
+    return user;
   } catch (error: unknown) {
     throw error;
   }
 }
 
-export async function signupUser(userInput: SignupInput) {
+export async function signupUser(userInput: SignupInput): Promise<User> {
   try {
     const { nickname, email, password } = userInput;
 
@@ -44,14 +41,30 @@ export async function signupUser(userInput: SignupInput) {
     });
 
     if (error) throw error;
+    if (!data.user) throw error;
 
+    // 닉네임 저장
     const { error: updateError } = await supabase.auth.updateUser({
       data: { nickname },
     });
-
     if (updateError) throw updateError;
 
-    // TODO: data 유저정보 전역 상태로 저장
+    const user: User = {
+      uid: data.user.id,
+      nickname,
+      email,
+    };
+
+    return user;
+  } catch (error: unknown) {
+    throw error;
+  }
+}
+
+export async function logoutUser(): Promise<boolean> {
+  try {
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
 
     return true;
   } catch (error: unknown) {
@@ -59,23 +72,13 @@ export async function signupUser(userInput: SignupInput) {
   }
 }
 
-export async function logoutUser() {
-  try {
-    const { error } = await supabase.auth.signOut();
-
-    if (error) throw error;
-  } catch (error: unknown) {
-    throw error;
-  }
-}
-
-export async function getAccessToken() {
+export async function getSession() {
   try {
     const {
       data: { session },
     } = await supabase.auth.getSession();
 
-    return session?.access_token;
+    return session;
   } catch (error: unknown) {
     throw error;
   }

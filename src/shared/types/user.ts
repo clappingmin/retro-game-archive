@@ -11,6 +11,6 @@ export interface SignupInput {
 
 export interface User {
   uid: string;
-  nickname: string;
-  email: string;
+  nickname?: string;
+  email?: string;
 }
