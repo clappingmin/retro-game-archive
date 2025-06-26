@@ -1,17 +1,17 @@
 export type GameType = 'flash' | 'html5' | 'other';
 
-export type GameCategory =
-  | 'puzzle_board'
-  | 'fashion_style'
-  | 'shooting_arcade'
-  | 'tycoon_idle'
-  | 'user_created'
-  | 'sports_racing'
-  | 'adventure';
+// export type GameCategory =
+//   | 'puzzle_board'
+//   | 'fashion_style'
+//   | 'shooting_arcade'
+//   | 'tycoon_idle'
+//   | 'user_created'
+//   | 'sports_racing'
+//   | 'adventure';
 
 export interface GameBase {
   gameType: GameType; // 게임 타입
-  tags: string[]; // 게임 태그
+  tags: number[]; // 게임 태그
   name: string; // 게임 이름
   description: string; // 게임 설명
   viewCount: number; // 조회수
@@ -34,6 +34,18 @@ export interface Game extends GameBase {
 }
 
 export interface GameTag {
-  id: string;
+  id: number;
   name: string;
+}
+
+export interface GameCategory {
+  id: number;
+  slug: string; // 라우터에 들어갈 텍스트
+  display_name: string;
+}
+
+// M:M 맵핑용 태그
+export interface Category_tag {
+  category_id: number;
+  tag_id: number;
 }

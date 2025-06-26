@@ -7,14 +7,16 @@ import { redirect } from 'next/navigation';
 /**
  * 게임 태그 추가
  * @param {string} newTag
- * @returns {Promise<null>}
+ * @returns {Promise<number>}
  */
-export async function addGameTag(newTag: string): Promise<null> {
+export async function addGameTag(newTag: string): Promise<number> {
   try {
-    const { error } = await supabase.from('tags').insert({ name: newTag });
+    const { data, error } = await supabase.from('tags').insert({ name: newTag }).select();
     if (error) throw error;
 
-    return null;
+    const tagId: number = data[0].id;
+
+    return tagId;
   } catch (error: unknown) {
     throw error;
   }

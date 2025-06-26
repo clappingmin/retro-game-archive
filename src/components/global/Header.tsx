@@ -13,6 +13,7 @@ export default function Header() {
   const pathname = usePathname();
 
   const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+  const user = useUserStore((state) => state.user);
   const [isHydrated, setIsHydrated] = useState(false);
   const { logout } = useAuth();
 
@@ -53,6 +54,11 @@ export default function Header() {
                 <Button variant="secondary">Sign up</Button>
               </Link>
             </>
+          )}
+          {user?.uid === `${process.env.NEXT_PUBLIC_ADMIN_UID}` && (
+            <Link href="/admin">
+              <Button>관리자</Button>
+            </Link>
           )}
         </div>
       </div>

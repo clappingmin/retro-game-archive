@@ -18,7 +18,7 @@ export default function AdminNewGamePage() {
   const [company, setCompany] = useState<string>('');
   const [isActive, setIsActive] = useState<boolean>(true);
   const [isFeatured, setIsFeatured] = useState<boolean>(false);
-  const [tags, setTags] = useState<string[]>([]); // 게임 태그
+  const [tags, setTags] = useState<number[]>([]); // 게임 태그
   const [allTags, setAllTags] = useState<GameTag[]>([]); // 디비에 저장된 모든 태그
   const [newTag, setNewTag] = useState<string>(''); // 디비에 추가할 태그
 
@@ -47,16 +47,29 @@ export default function AdminNewGamePage() {
       if (!newTag) return;
 
       // 디비에 새태그 저장
-      await api.addGameTag(newTag);
-      setAllTags((prevTags: GameTag[]) => [...prevTags, { id: 'new', name: newTag }]);
+      const tagId = await api.addGameTag(newTag);
+      setAllTags((prevTags: GameTag[]) => [...prevTags, { id: tagId, name: newTag }]);
       setNewTag('');
     } catch (error) {
       console.error('태그 추가 실패:', error);
     }
   };
 
-  const handleChangeTag = (tag: string) => {
+  const handleChangeTag = (tag: number) => {
     setTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
+  };
+
+  const setDeafaultGameInput = () => {
+    setGameType('flash');
+    setGameFile(null);
+    setPreview(null);
+    setThumbnail(null);
+    setName('');
+    setDescription('');
+    setCompany('');
+    setIsActive(true);
+    setIsFeatured(false);
+    setTags([]);
   };
 
   const handleAddNewGame = async () => {
@@ -79,6 +92,7 @@ export default function AdminNewGamePage() {
     };
 
     await api.addNewGame(newGame, storageDate);
+    setDeafaultGameInput();
   };
   return (
     <div className={styles.wrapper}>
@@ -167,18 +181,18 @@ export default function AdminNewGamePage() {
       </div>
 
       {/* 게임 태그 선택 */}
-      <form className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2">
         {allTags.map((tag) => (
           <div className="flex w-fit items-center gap-3 whitespace-nowrap" key={tag.id}>
             <Checkbox
               id={`tag-${tag.id}`}
-              checked={tags.includes(tag.name)}
-              onCheckedChange={() => handleChangeTag(tag.name)}
+              checked={tags.includes(tag.id)}
+              onCheckedChange={() => handleChangeTag(tag.id)}
             />
             <label htmlFor={`tag-${tag.id}`}>{tag.name}</label>
           </div>
         ))}
-      </form>
+      </div>
 
       <div className="flex gap-2">
         <input
