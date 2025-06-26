@@ -20,13 +20,21 @@ export default function AdminNewCategoryPage() {
     setTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
   };
 
+  const setDeafaultCategoryInput = () => {
+    setDisplayName('');
+    setSlug('');
+    setTags([]);
+  };
+
   const handleAddNewCategory = async () => {
     const newCategory: GameCategory = {
       slug,
       displayName,
     };
 
-    await api.addCategory(newCategory, tags);
+    const result = await api.addCategory(newCategory, tags);
+
+    if (result) setDeafaultCategoryInput();
   };
 
   return (
