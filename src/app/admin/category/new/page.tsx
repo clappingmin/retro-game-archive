@@ -1,12 +1,14 @@
 'use client';
 
-import { GameTag } from '@/shared/types/game';
+import { GameCategory, GameTag } from '@/shared/types/game';
 import { useEffect, useState } from 'react';
 import * as api from '@/shared/services/admin/game';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 
 export default function AdminNewCategoryPage() {
+  const [displayName, setDisplayName] = useState(''); // 카테고리 표시명
+  const [slug, setSlug] = useState(''); // 카테고리 라우터
   const [tags, setTags] = useState<number[]>([]); // 카테고리 포함될 태그들
   const [allTags, setAllTags] = useState<GameTag[]>([]); // 디비에 저장된 모든 태그
 
@@ -18,16 +20,35 @@ export default function AdminNewCategoryPage() {
     setTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
   };
 
+  const handleAddNewCategory = async () => {
+    const newCategory: GameCategory = {
+      slug,
+      displayName,
+    };
+
+    await api.addCategory(newCategory, tags);
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <h1 className="bold mb-4 text-xl">카테고리 추가</h1>
       <div className="flex gap-4">
         <label htmlFor="dispaly_name">카테고리명 (display용)</label>
-        <input placeholder="카테고리명 (display용)" id="dispaly_name"></input>
+        <input
+          placeholder="카테고리명 (display용)"
+          id="dispaly_name"
+          value={displayName}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDisplayName(e.target.value)}
+        />
       </div>
       <div className="flex gap-4">
         <label htmlFor="slug">라우터용</label>
-        <input placeholder="라우터용" id="slug"></input>
+        <input
+          placeholder="라우터용"
+          id="slug"
+          value={slug}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSlug(e.target.value)}
+        />
       </div>
 
       <h1 className="bold text-lg">태그 선택</h1>
@@ -43,7 +64,13 @@ export default function AdminNewCategoryPage() {
           </div>
         ))}
       </div>
-      <Button>카테고리 추가하기</Button>
+      <Button
+        onClick={() => {
+          handleAddNewCategory();
+        }}
+      >
+        카테고리 추가하기
+      </Button>
     </div>
   );
 }

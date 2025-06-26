@@ -39,13 +39,13 @@ export interface GameTag {
 }
 
 export interface GameCategory {
-  id: number;
+  id?: number;
   slug: string; // 라우터에 들어갈 텍스트
-  display_name: string;
+  displayName: string;
 }
 
 // M:M 맵핑용 태그
 export interface Category_tag {
-  category_id: number;
-  tag_id: number;
+  categoryId: number;
+  tagId: number;
 }
