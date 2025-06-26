@@ -25,7 +25,7 @@ export interface GameStorageData {
 }
 
 export interface Game extends GameBase {
-  gameId: string;
+  id: string;
   gameFileUrl: string; // 게임 파일 URL
   thumbnailUrl: string; // 썸네일 이미지 URL
   createdAt?: Date; // 생성일
