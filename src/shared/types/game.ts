@@ -11,7 +11,6 @@ export type GameType = 'flash' | 'html5' | 'other';
 
 export interface GameBase {
   gameType: GameType; // 게임 타입
-  tags: number[]; // 게임 태그
   name: string; // 게임 이름
   description: string; // 게임 설명
   viewCount: number; // 조회수

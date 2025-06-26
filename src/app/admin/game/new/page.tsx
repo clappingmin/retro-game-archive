@@ -77,7 +77,6 @@ export default function AdminNewGamePage() {
 
     const newGame: GameBase = {
       gameType,
-      tags,
       name,
       description,
       viewCount: 0,
@@ -91,7 +90,7 @@ export default function AdminNewGamePage() {
       gameFile,
     };
 
-    await api.addNewGame(newGame, storageDate);
+    await api.addNewGame(newGame, storageDate, tags);
     setDeafaultGameInput();
   };
   return (

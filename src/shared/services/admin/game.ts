@@ -48,21 +48,36 @@ export async function getTags(): Promise<GameTag[]> {
  * 새 게임 추가
  * @param {GameBase} newGame
  * @param {GameStorageData} storageData
+ * @param {number[]} tags
  * @returns
  */
-export async function addNewGame(newGame: GameBase, storageData: GameStorageData): Promise<Game> {
+export async function addNewGame(
+  newGame: GameBase,
+  storageData: GameStorageData,
+  tagIds: number[],
+): Promise<Game> {
   try {
     const gameId = uuidv4();
     const { gameType } = newGame;
     const { thumbnail, gameFile } = storageData;
 
+    // 1. 스토리지 파일 업로드
     const thumbnailUrl = await uploadGameThumbnail(gameId, gameType, thumbnail);
     const gameFileUrl = await uploadGameFile(gameId, gameType, gameFile);
 
+    // 2. 게임 저장
     const updateGame: Game = { ...newGame, gameId, gameFileUrl, thumbnailUrl };
-
     const { error } = await supabase.from('games').insert(updateGame);
     if (error) throw error;
+
+    // 3.게임 태그 저장
+    // 2. games_tags에 연결
+    const tagMappings = tagIds.map((tagId) => ({
+      gameId,
+      tagId,
+    }));
+    const { error: mappingError } = await supabase.from('game_tags').insert(tagMappings);
+    if (mappingError) throw mappingError;
 
     return updateGame;
   } catch (error: unknown) {
@@ -165,7 +180,6 @@ export async function addCategory(newCatagory: GameCategory, tagIds: number[]) {
     }));
 
     const { error: mappingError } = await supabase.from('categories_tags').insert(tagMappings);
-
     if (mappingError) throw mappingError;
 
     return categoryData;
