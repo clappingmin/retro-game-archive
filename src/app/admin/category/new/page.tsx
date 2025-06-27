@@ -1,30 +1,17 @@
 'use client';
 
-import { GameCategory, GameTag } from '@/shared/types/game';
-import { useEffect, useState } from 'react';
-import * as api from '@/shared/services/admin/game';
-import { addCategory } from '@/shared/services/admin/category';
+import { GameCategory } from '@/shared/types/game';
+import { useState } from 'react';
+import * as api from '@/shared/services/admin/category';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 
 export default function AdminNewCategoryPage() {
   const [displayName, setDisplayName] = useState(''); // 카테고리 표시명
   const [slug, setSlug] = useState(''); // 카테고리 라우터
-  const [tags, setTags] = useState<number[]>([]); // 카테고리 포함될 태그들
-  const [allTags, setAllTags] = useState<GameTag[]>([]); // 디비에 저장된 모든 태그
-
-  useEffect(() => {
-    api.getTags().then(setAllTags);
-  }, []);
-
-  const handleChangeTag = (tag: number) => {
-    setTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
-  };
 
   const setDeafaultCategoryInput = () => {
     setDisplayName('');
     setSlug('');
-    setTags([]);
   };
 
   const handleAddNewCategory = async () => {
@@ -33,8 +20,7 @@ export default function AdminNewCategoryPage() {
       displayName,
     };
 
-    const result = await addCategory(newCategory, tags);
-
+    const result = await api.addCategory(newCategory);
     if (result) setDeafaultCategoryInput();
   };
 
@@ -60,19 +46,6 @@ export default function AdminNewCategoryPage() {
         />
       </div>
 
-      <h1 className="bold text-lg">태그 선택</h1>
-      <div className="flex flex-wrap gap-2">
-        {allTags.map((tag) => (
-          <div className="flex w-fit items-center gap-3 whitespace-nowrap" key={tag.id}>
-            <Checkbox
-              id={`tag-${tag.id}`}
-              checked={tags.includes(tag.id)}
-              onCheckedChange={() => handleChangeTag(tag.id)}
-            />
-            <label htmlFor={`tag-${tag.id}`}>{tag.name}</label>
-          </div>
-        ))}
-      </div>
       <Button
         onClick={() => {
           handleAddNewCategory();
