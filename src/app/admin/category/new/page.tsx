@@ -6,18 +6,18 @@ import * as api from '@/shared/services/admin/category';
 import { Button } from '@/components/ui/button';
 
 export default function AdminNewCategoryPage() {
-  const [displayName, setDisplayName] = useState(''); // 카테고리 표시명
+  const [name, setName] = useState(''); // 카테고리 표시명
   const [slug, setSlug] = useState(''); // 카테고리 라우터
 
   const setDeafaultCategoryInput = () => {
-    setDisplayName('');
+    setName('');
     setSlug('');
   };
 
   const handleAddNewCategory = async () => {
     const newCategory: GameCategory = {
       slug,
-      displayName,
+      name,
     };
 
     const result = await api.addCategory(newCategory);
@@ -32,8 +32,8 @@ export default function AdminNewCategoryPage() {
         <input
           placeholder="카테고리명 (display용)"
           id="dispaly_name"
-          value={displayName}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDisplayName(e.target.value)}
+          value={name}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
         />
       </div>
       <div className="flex gap-4">

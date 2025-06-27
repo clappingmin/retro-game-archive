@@ -49,7 +49,7 @@ export default function AdminNewSubcategoryPage() {
         {mainCategories?.map((item) => (
           <div className="flex items-center gap-3" key={item.id}>
             <RadioGroupItem value={String(item.id)} id={String(item.id)} />
-            <label htmlFor={String(item.id)}>{item.displayName}</label>
+            <label htmlFor={String(item.id)}>{item.name}</label>
           </div>
         ))}
       </RadioGroup>

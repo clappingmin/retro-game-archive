@@ -41,7 +41,7 @@ export interface GameTag {
 export interface GameCategory {
   id?: number;
   slug: string; // 라우터에 들어갈 텍스트
-  displayName: string;
+  name: string;
 }
 
 // M:M 맵핑용 태그
