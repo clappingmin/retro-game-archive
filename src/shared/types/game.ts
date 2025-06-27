@@ -49,3 +49,10 @@ export interface Category_tag {
   categoryId: number;
   tagId: number;
 }
+
+export interface GameSubCategory {
+  id?: number;
+  name: string;
+  slug: string; // 라우터에 들어갈 텍스트
+  categoryId: number;
+}
