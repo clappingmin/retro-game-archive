@@ -3,6 +3,7 @@
 import { GameCategory, GameTag } from '@/shared/types/game';
 import { useEffect, useState } from 'react';
 import * as api from '@/shared/services/admin/game';
+import { addCategory } from '@/shared/services/admin/category';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 
@@ -32,7 +33,7 @@ export default function AdminNewCategoryPage() {
       displayName,
     };
 
-    const result = await api.addCategory(newCategory, tags);
+    const result = await addCategory(newCategory, tags);
 
     if (result) setDeafaultCategoryInput();
   };
