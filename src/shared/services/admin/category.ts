@@ -4,7 +4,6 @@ import { supabase } from '@/shared/utils/supabase/client';
 /**
  * 메인 카테고리 추가하기
  * @param newCatagory
- * @param tagIds
  * @returns
  */
 export async function addCategory(newCatagory: GameCategory) {
@@ -41,30 +40,12 @@ export async function getAllCategories(): Promise<GameCategory[]> {
 /**
  * 서브카테고리 추가
  * @param {GameSubCategory} subCategory
- * @param {number} tagIds
  * @returns {Promise<boolean>}
  */
-export async function addSubCategory(
-  subCategory: GameSubCategory,
-  tagIds: number[],
-): Promise<boolean> {
+export async function addSubCategory(subCategory: GameSubCategory): Promise<boolean> {
   try {
-    const { categoryId } = subCategory;
-
-    // 1. 서브카테고리 저장
-    const { data, error } = await supabase.from('subcategories').insert(subCategory).select();
+    const { error } = await supabase.from('subcategories').insert(subCategory).select();
     if (error) throw error;
-
-    const subcategoryId = data[0]?.id;
-
-    // 2. subcategory_tags 연결
-    const tagMappings = tagIds.map((tagId) => ({
-      subcategoryId,
-      tagId,
-    }));
-
-    const { error: mappingError } = await supabase.from('subcategory_tags').insert(tagMappings);
-    if (mappingError) throw mappingError;
 
     return true;
   } catch (error: unknown) {

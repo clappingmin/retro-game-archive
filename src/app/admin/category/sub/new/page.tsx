@@ -2,38 +2,25 @@
 
 import { useEffect, useState } from 'react';
 import * as api from '@/shared/services/admin/category';
-import { getTags } from '@/shared/services/admin/game';
-import { GameCategory, GameSubCategory, GameTag } from '@/shared/types/game';
+import { GameCategory, GameSubCategory } from '@/shared/types/game';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 
 export default function AdminNewSubcategoryPage() {
   const [mainCategories, setMainCategories] = useState<GameCategory[]>();
-  const [allTags, setAllTags] = useState<GameTag[]>([]);
   const [categoryId, setCategoryId] = useState<number>(-1);
   const [name, setName] = useState<string>('');
   const [slug, setSlug] = useState<string>('');
-  const [tagIds, setTagIds] = useState<number[]>([]);
 
   useEffect(() => {
     api.getAllCategories().then((categories: GameCategory[]) => {
       setMainCategories(categories);
     });
-
-    getTags().then((tags: GameTag[]) => {
-      setAllTags(tags);
-    });
   }, []);
-
-  const handleChangeTag = (tag: number) => {
-    setTagIds((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
-  };
 
   const setDefaultSubCategoryInput = () => {
     setName('');
     setSlug('');
-    setTagIds([]);
     setCategoryId(-1);
   };
 
@@ -44,7 +31,7 @@ export default function AdminNewSubcategoryPage() {
       categoryId,
     };
 
-    const result = await api.addSubCategory(subCategory, tagIds);
+    const result = await api.addSubCategory(subCategory);
 
     if (result) setDefaultSubCategoryInput();
   };
@@ -88,19 +75,6 @@ export default function AdminNewSubcategoryPage() {
             value={slug}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSlug(e.target.value)}
           />
-        </div>
-        <h1>태그 추가</h1>
-        <div className="flex flex-wrap gap-2">
-          {allTags.map((tag) => (
-            <div className="flex w-fit items-center gap-3 whitespace-nowrap" key={tag.id}>
-              <Checkbox
-                id={`tag-${tag.id}`}
-                checked={tagIds.includes(tag.id)}
-                onCheckedChange={() => handleChangeTag(tag.id)}
-              />
-              <label htmlFor={`tag-${tag.id}`}>{tag.name}</label>
-            </div>
-          ))}
         </div>
       </div>
 
