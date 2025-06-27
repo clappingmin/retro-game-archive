@@ -62,12 +62,6 @@ export default function Header() {
           )}
         </div>
       </div>
-      <div className="flex justify-start gap-2">
-        <Button variant="ghost">슈게임</Button>
-        <Button variant="ghost">로이월드</Button>
-        <Button variant="ghost">쥬쥬게임</Button>
-        <Button variant="ghost">비비빅</Button>
-      </div>
     </header>
   );
 }
