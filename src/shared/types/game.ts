@@ -17,6 +17,7 @@ export interface GameBase {
   isFeatured: boolean; // 추천 여부
   isActive: boolean; // 활성화 여부
   company: string; // 게임 회사
+  howToPlay: string; // 게임 방법
 }
 
 export interface GameStorageData {

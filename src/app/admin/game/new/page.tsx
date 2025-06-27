@@ -15,6 +15,7 @@ export default function AdminNewGamePage() {
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
+  const [howToPlay, setHowToPlay] = useState<string>('');
   const [company, setCompany] = useState<string>('');
   const [isActive, setIsActive] = useState<boolean>(true);
   const [isFeatured, setIsFeatured] = useState<boolean>(false);
@@ -66,6 +67,7 @@ export default function AdminNewGamePage() {
     setThumbnail(null);
     setName('');
     setDescription('');
+    setHowToPlay('');
     setCompany('');
     setIsActive(true);
     setIsFeatured(false);
@@ -79,6 +81,7 @@ export default function AdminNewGamePage() {
       gameType,
       name,
       description,
+      howToPlay,
       viewCount: 0,
       isFeatured,
       isActive,
@@ -145,6 +148,16 @@ export default function AdminNewGamePage() {
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                 setDescription(e.target.value)
               }
+            />
+          </div>
+          {/* 게임 방법 */}
+          <div className={styles.inputBox}>
+            <label htmlFor="howToPlay">게임 방법</label>
+            <textarea
+              id="howToPlay"
+              placeholder="게임 방법을 입력하세요."
+              value={howToPlay}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setHowToPlay(e.target.value)}
             />
           </div>
           {/* 게임 회사 */}
