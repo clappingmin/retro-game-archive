@@ -33,24 +33,13 @@ export interface Game extends GameBase {
   updatedAt?: Date; // 수정일
 }
 
-export interface GameTag {
-  id: number;
-  name: string;
-}
-
 export interface GameCategory {
   id?: number;
   slug: string; // 라우터에 들어갈 텍스트
   name: string;
 }
 
-// M:M 맵핑용 태그
-export interface Category_tag {
-  categoryId: number;
-  tagId: number;
-}
-
-export interface GameSubCategory {
+export interface GameSubcategory {
   id?: number;
   name: string;
   slug: string; // 라우터에 들어갈 텍스트

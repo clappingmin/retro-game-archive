@@ -42,7 +42,7 @@ export async function getAllCategories(): Promise<GameCategory[]> {
  * @param {GameSubCategory} subCategory
  * @returns {Promise<boolean>}
  */
-export async function addSubCategory(subCategory: GameSubCategory): Promise<boolean> {
+export async function addSubcategory(subCategory: GameSubCategory): Promise<boolean> {
   try {
     const { error } = await supabase.from('subcategories').insert(subCategory).select();
     if (error) throw error;

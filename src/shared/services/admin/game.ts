@@ -1,54 +1,16 @@
 import { createAuthedClient, supabase } from '@/shared/utils/supabase/client';
-import { Game, GameBase, GameStorageData, GameTag, GameType } from '@/shared/types/game';
+import { Game, GameBase, GameStorageData, GameType } from '@/shared/types/game';
 import { v4 as uuidv4 } from 'uuid';
 import { getSession } from '../app/auth';
 import { redirect } from 'next/navigation';
 
 /**
- * 게임 태그 추가
- * @param {string} newTag
- * @returns {Promise<number>}
- */
-export async function addGameTag(newTag: string): Promise<number> {
-  try {
-    const { data, error } = await supabase.from('tags').insert({ name: newTag }).select();
-    if (error) throw error;
-
-    const tagId: number = data[0].id;
-
-    return tagId;
-  } catch (error: unknown) {
-    throw error;
-  }
-}
-
-/**
- *  디비 태그 가져오기
- * @returns {Promise<GameTag[]>}
- */
-export async function getTags(): Promise<GameTag[]> {
-  try {
-    const { data, error } = await supabase.from('tags').select();
-    if (error) throw error;
-
-    return data as GameTag[];
-  } catch (error: unknown) {
-    throw error;
-  }
-}
-
-/**
  * 새 게임 추가
  * @param {GameBase} newGame
  * @param {GameStorageData} storageData
- * @param {number[]} tags
  * @returns
  */
-export async function addNewGame(
-  newGame: GameBase,
-  storageData: GameStorageData,
-  tagIds: number[],
-): Promise<Game> {
+export async function addNewGame(newGame: GameBase, storageData: GameStorageData): Promise<Game> {
   try {
     const id = uuidv4();
     const { gameType } = newGame;
@@ -62,15 +24,6 @@ export async function addNewGame(
     const updateGame: Game = { ...newGame, id, gameFileUrl, thumbnailUrl };
     const { error } = await supabase.from('games').insert(updateGame);
     if (error) throw error;
-
-    // 3.게임 태그 저장
-    // 2. games_tags에 연결
-    const tagMappings = tagIds.map((tagId) => ({
-      gameId: id,
-      tagId,
-    }));
-    const { error: mappingError } = await supabase.from('game_tags').insert(tagMappings);
-    if (mappingError) throw mappingError;
 
     return updateGame;
   } catch (error: unknown) {

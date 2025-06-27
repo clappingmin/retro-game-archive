@@ -3,9 +3,9 @@ import styles from './page.module.scss';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
 import { GAME_TYPE_RADIO_ITEMS } from '@/shared/constants/game';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { GameBase, GameStorageData, GameTag, GameType } from '@/shared/types/game';
+import { GameBase, GameStorageData, GameType } from '@/shared/types/game';
 import * as api from '@/shared/services/admin/game';
 
 export default function AdminNewGamePage() {
@@ -19,13 +19,6 @@ export default function AdminNewGamePage() {
   const [company, setCompany] = useState<string>('');
   const [isActive, setIsActive] = useState<boolean>(true);
   const [isFeatured, setIsFeatured] = useState<boolean>(false);
-  const [tags, setTags] = useState<number[]>([]); // 게임 태그
-  const [allTags, setAllTags] = useState<GameTag[]>([]); // 디비에 저장된 모든 태그
-  const [newTag, setNewTag] = useState<string>(''); // 디비에 추가할 태그
-
-  useEffect(() => {
-    api.getTags().then(setAllTags);
-  }, []);
 
   const handleGameFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -43,23 +36,6 @@ export default function AdminNewGamePage() {
     }
   };
 
-  const handleNewTag = async () => {
-    try {
-      if (!newTag) return;
-
-      // 디비에 새태그 저장
-      const tagId = await api.addGameTag(newTag);
-      setAllTags((prevTags: GameTag[]) => [...prevTags, { id: tagId, name: newTag }]);
-      setNewTag('');
-    } catch (error) {
-      console.error('태그 추가 실패:', error);
-    }
-  };
-
-  const handleChangeTag = (tag: number) => {
-    setTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
-  };
-
   const setDeafaultGameInput = () => {
     setGameType('flash');
     setGameFile(null);
@@ -71,7 +47,6 @@ export default function AdminNewGamePage() {
     setCompany('');
     setIsActive(true);
     setIsFeatured(false);
-    setTags([]);
   };
 
   const handleAddNewGame = async () => {
@@ -93,7 +68,7 @@ export default function AdminNewGamePage() {
       gameFile,
     };
 
-    await api.addNewGame(newGame, storageDate, tags);
+    await api.addNewGame(newGame, storageDate);
     setDeafaultGameInput();
   };
   return (
@@ -190,32 +165,6 @@ export default function AdminNewGamePage() {
             <label htmlFor="isFeatured">추천</label>
           </div>
         </div>
-      </div>
-
-      {/* 게임 태그 선택 */}
-      <div className="flex flex-wrap gap-2">
-        {allTags.map((tag) => (
-          <div className="flex w-fit items-center gap-3 whitespace-nowrap" key={tag.id}>
-            <Checkbox
-              id={`tag-${tag.id}`}
-              checked={tags.includes(tag.id)}
-              onCheckedChange={() => handleChangeTag(tag.id)}
-            />
-            <label htmlFor={`tag-${tag.id}`}>{tag.name}</label>
-          </div>
-        ))}
-      </div>
-
-      <div className="flex gap-2">
-        <input
-          id="tag"
-          placeholder="추가할 태그를 입력하세요."
-          value={newTag}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewTag(e.target.value)}
-        />
-        <Button variant="default" onClick={handleNewTag}>
-          태그 추가하기
-        </Button>
       </div>
 
       <Button onClick={handleAddNewGame}>추가하기</Button>

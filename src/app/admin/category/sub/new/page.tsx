@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import * as api from '@/shared/services/admin/category';
-import { GameCategory, GameSubCategory } from '@/shared/types/game';
+import { GameCategory, GameSubcategory } from '@/shared/types/game';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Button } from '@/components/ui/button';
 
@@ -25,13 +25,13 @@ export default function AdminNewSubcategoryPage() {
   };
 
   const handleAddSubCategory = async () => {
-    const subCategory: GameSubCategory = {
+    const subCategory: GameSubcategory = {
       name,
       slug,
       categoryId,
     };
 
-    const result = await api.addSubCategory(subCategory);
+    const result = await api.addSubcategory(subCategory);
 
     if (result) setDefaultSubCategoryInput();
   };
