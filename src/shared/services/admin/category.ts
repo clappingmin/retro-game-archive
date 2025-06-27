@@ -1,4 +1,4 @@
-import { GameCategory, GameSubCategory } from '@/shared/types/game';
+import { GameCategory, GameSubcategory } from '@/shared/types/game';
 import { supabase } from '@/shared/utils/supabase/client';
 
 /**
@@ -42,7 +42,7 @@ export async function getAllCategories(): Promise<GameCategory[]> {
  * @param {GameSubCategory} subCategory
  * @returns {Promise<boolean>}
  */
-export async function addSubcategory(subCategory: GameSubCategory): Promise<boolean> {
+export async function addSubcategory(subCategory: GameSubcategory): Promise<boolean> {
   try {
     const { error } = await supabase.from('subcategories').insert(subCategory).select();
     if (error) throw error;
