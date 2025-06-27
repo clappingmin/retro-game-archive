@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { GameBase, GameStorageData, GameType } from '@/shared/types/game';
 import * as api from '@/shared/services/admin/game';
+import CategorySelector from '@/components/admin/CategorySelector';
 
 export default function AdminNewGamePage() {
   const [gameType, setGameType] = useState<GameType>('flash');
@@ -19,6 +20,8 @@ export default function AdminNewGamePage() {
   const [company, setCompany] = useState<string>('');
   const [isActive, setIsActive] = useState<boolean>(true);
   const [isFeatured, setIsFeatured] = useState<boolean>(false);
+  const [categoryIds, setCategoryIds] = useState<number[]>([]);
+  const [subcategoryIds, setSubcategoryIds] = useState<number[]>([]);
 
   const handleGameFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -68,7 +71,12 @@ export default function AdminNewGamePage() {
       gameFile,
     };
 
-    await api.addNewGame(newGame, storageDate);
+    const categoryInfo = {
+      categoryIds,
+      subcategoryIds,
+    };
+
+    await api.addNewGame(newGame, storageDate, categoryInfo);
     setDeafaultGameInput();
   };
   return (
@@ -166,6 +174,12 @@ export default function AdminNewGamePage() {
           </div>
         </div>
       </div>
+      <CategorySelector
+        onChange={({ categoryIds, subcategoryIds }) => {
+          setCategoryIds(categoryIds);
+          setSubcategoryIds(subcategoryIds); // 이걸로 API 요청하거나 상태 관리하면 됨
+        }}
+      />
 
       <Button onClick={handleAddNewGame}>추가하기</Button>
     </div>

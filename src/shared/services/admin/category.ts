@@ -52,3 +52,18 @@ export async function addSubcategory(subCategory: GameSubcategory): Promise<bool
     throw error;
   }
 }
+
+/**
+ * 메인 카테고리 전체 가져오기
+ * @returns {Promise<GameSubcategory[]>}
+ */
+export async function getAllSubcategories(): Promise<GameSubcategory[]> {
+  try {
+    const { data, error } = await supabase.from('subcategories').select();
+    if (error) throw error;
+
+    return data as GameSubcategory[];
+  } catch (error: unknown) {
+    throw error;
+  }
+}

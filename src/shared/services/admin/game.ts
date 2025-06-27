@@ -10,11 +10,16 @@ import { redirect } from 'next/navigation';
  * @param {GameStorageData} storageData
  * @returns
  */
-export async function addNewGame(newGame: GameBase, storageData: GameStorageData): Promise<Game> {
+export async function addNewGame(
+  newGame: GameBase,
+  storageData: GameStorageData,
+  categoryInfo: { categoryIds: number[]; subcategoryIds: number[] },
+): Promise<Game> {
   try {
     const id = uuidv4();
     const { gameType } = newGame;
     const { thumbnail, gameFile } = storageData;
+    const { categoryIds, subcategoryIds } = categoryInfo;
 
     // 1. 스토리지 파일 업로드
     const thumbnailUrl = await uploadGameThumbnail(id, gameType, thumbnail);
@@ -24,6 +29,30 @@ export async function addNewGame(newGame: GameBase, storageData: GameStorageData
     const updateGame: Game = { ...newGame, id, gameFileUrl, thumbnailUrl };
     const { error } = await supabase.from('games').insert(updateGame);
     if (error) throw error;
+
+    // 3. 게임 카테고리 정보 저장
+    const categoryMappings = categoryIds.map((categoryId) => ({
+      gameId: id,
+      categoryId,
+    }));
+
+    const { error: categoryMappingError } = await supabase
+      .from('game_categories')
+      .insert(categoryMappings);
+
+    if (categoryMappingError) throw categoryMappingError;
+
+    // 4. 게임 서브카테고리 정보 저장
+    const subcategoryMappings = subcategoryIds.map((subcategoryId) => ({
+      gameId: id,
+      subcategoryId,
+    }));
+
+    const { error: subcategoryMappingError } = await supabase
+      .from('game_subcategories')
+      .insert(subcategoryMappings);
+
+    if (subcategoryMappingError) throw subcategoryMappingError;
 
     return updateGame;
   } catch (error: unknown) {
