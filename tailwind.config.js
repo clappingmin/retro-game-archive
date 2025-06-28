@@ -5,14 +5,12 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
-
-    // Or if using `src` directory:
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['pretendard', 'sans-serif'], // 기본 폰트로 사용
+        sans: ['pretendard', 'sans-serif'],
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -31,18 +29,18 @@ module.exports = {
           foreground: 'hsl(var(--popover-foreground))',
         },
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
           50: '#f0fdfa',
           100: '#ccfbf1',
           200: '#99f6e4',
           300: '#5eead4',
           400: '#2dd4bf',
-          500: '#14b8a6', // DEFAULT
+          500: '#14b8a6',
           600: '#0d9488',
           700: '#0f766e',
           800: '#115e59',
           900: '#134e4a',
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',

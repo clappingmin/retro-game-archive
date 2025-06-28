@@ -2,9 +2,11 @@ import type { Metadata } from 'next';
 import 'reset-css';
 import '@/styles/globals.scss';
 import '@/styles/global.css';
+
 import Header from '@/components/global/Header';
 import Footer from '@/components/global/Footer';
 import SessionWatcher from '@/components/global/SessionWatcher';
+import Menubar from '@/components/global/Menubar';
 
 export const metadata: Metadata = {
   title: '플래시니티',
@@ -22,6 +24,7 @@ export default function RootLayout({
         <SessionWatcher />
         <div className="flex min-h-screen w-screen flex-col bg-[url('/images/layout-bg.svg')] bg-contain bg-no-repeat [background-position:top_right]">
           <Header />
+          <Menubar />
           <div className="layout flex-1">{children}</div>
           <Footer />
         </div>

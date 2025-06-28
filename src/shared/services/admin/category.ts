@@ -54,7 +54,7 @@ export async function addSubcategory(subCategory: GameSubcategory): Promise<bool
 }
 
 /**
- * 메인 카테고리 전체 가져오기
+ * 서브 카테고리 전체 가져오기
  * @returns {Promise<GameSubcategory[]>}
  */
 export async function getAllSubcategories(): Promise<GameSubcategory[]> {
