@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { Input } from '@/components/ui/input';
-import { Button } from '../ui/button';
 import Link from 'next/link';
 import * as api from '@/shared/services/app/auth';
 import { useUserStore } from '@/shared/store/user';
@@ -42,22 +41,20 @@ export default function Header() {
         <Input className="max-w-xs" />
         <div className="flex items-center gap-2">
           {isLoggedIn ? (
-            <Button variant="secondary" onClick={handleLogout}>
-              Log out
-            </Button>
+            <button onClick={handleLogout}>Log out</button>
           ) : (
             <>
               <Link href={`/auth/login?redirect=${handleAuthRouter()}`}>
-                <Button>Log in</Button>
+                <button>Log in</button>
               </Link>
               <Link href={`/auth/signup?redirect=${handleAuthRouter()}`}>
-                <Button variant="secondary">Sign up</Button>
+                <button>Sign up</button>
               </Link>
             </>
           )}
           {user?.uid === `${process.env.NEXT_PUBLIC_ADMIN_UID}` && (
             <Link href="/admin">
-              <Button>관리자</Button>
+              <button>관리자</button>
             </Link>
           )}
         </div>
