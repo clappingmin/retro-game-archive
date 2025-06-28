@@ -3,7 +3,6 @@
 import { GameCategory } from '@/shared/types/game';
 import { useState } from 'react';
 import * as api from '@/shared/services/admin/category';
-import { Button } from '@/components/ui/button';
 
 export default function AdminNewCategoryPage() {
   const [name, setName] = useState(''); // 카테고리 표시명
@@ -46,13 +45,14 @@ export default function AdminNewCategoryPage() {
         />
       </div>
 
-      <Button
+      <button
+        className="btn btn-primary"
         onClick={() => {
           handleAddNewCategory();
         }}
       >
         카테고리 추가하기
-      </Button>
+      </button>
     </div>
   );
 }

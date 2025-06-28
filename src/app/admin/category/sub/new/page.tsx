@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import * as api from '@/shared/services/admin/category';
 import { GameCategory, GameSubcategory } from '@/shared/types/game';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Button } from '@/components/ui/button';
 
 export default function AdminNewSubcategoryPage() {
   const [mainCategories, setMainCategories] = useState<GameCategory[]>();
@@ -78,7 +77,9 @@ export default function AdminNewSubcategoryPage() {
         </div>
       </div>
 
-      <Button onClick={handleAddSubCategory}>서브카테고리 추가</Button>
+      <button className="btn btn-primary" onClick={handleAddSubCategory}>
+        서브카테고리 추가
+      </button>
     </div>
   );
 }

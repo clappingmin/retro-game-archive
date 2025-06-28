@@ -1,6 +1,5 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useEffect, useState } from 'react';
 import * as api from '@/shared/services/app/auth';
@@ -51,7 +50,9 @@ export default function LoginPage() {
         onChange={(e) => setPassword(e.target.value)}
         type="password"
       />
-      <Button onClick={handleLogin}>Login</Button>
+      <button className="btn btn-primary" onClick={handleLogin}>
+        Login
+      </button>
     </div>
   );
 }

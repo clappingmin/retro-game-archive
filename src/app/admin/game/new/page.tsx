@@ -4,7 +4,6 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
 import { GAME_TYPE_RADIO_ITEMS } from '@/shared/constants/game';
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
 import { GameBase, GameStorageData, GameType } from '@/shared/types/game';
 import * as api from '@/shared/services/admin/game';
 import CategorySelector from '@/components/admin/CategorySelector';
@@ -181,7 +180,9 @@ export default function AdminNewGamePage() {
         }}
       />
 
-      <Button onClick={handleAddNewGame}>추가하기</Button>
+      <button className="btn btn-primary" onClick={handleAddNewGame}>
+        추가하기
+      </button>
     </div>
   );
 }
