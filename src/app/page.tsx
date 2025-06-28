@@ -1,6 +1,7 @@
 export default function Home() {
   return (
     <div>
+      <h1 className="bg-red-300">랜딩페이지</h1>
       <button className="btn btn-neutral">Neutral</button>
       <button className="btn btn-primary">Primary</button>
       <button className="btn btn-secondary">Secondary</button>

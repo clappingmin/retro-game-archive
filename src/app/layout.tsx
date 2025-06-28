@@ -17,7 +17,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" data-theme="light">
+      <head>
+        <link
+          href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css"
+          rel="stylesheet"
+          type="text/css"
+        />
+      </head>
       <body>
         <SessionWatcher />
         <div className="flex min-h-screen w-screen flex-col bg-[url('/images/layout-bg.svg')] bg-contain bg-no-repeat [background-position:top_right]">
