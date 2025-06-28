@@ -1,9 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as api from '@/shared/services/admin/category';
 import { GameCategory, GameSubcategory } from '@/shared/types/game';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 export default function AdminNewSubcategoryPage() {
   const [mainCategories, setMainCategories] = useState<GameCategory[]>();
@@ -31,27 +30,31 @@ export default function AdminNewSubcategoryPage() {
     };
 
     const result = await api.addSubcategory(subCategory);
-
     if (result) setDefaultSubCategoryInput();
   };
 
   return (
     <div className="flex flex-col gap-4">
       <h1 className="bold text-xl">메인 카테고리 선택</h1>
-      <RadioGroup
-        defaultValue={String(mainCategories?.[0].id)}
+      <div
         className="flex"
-        onValueChange={(value: string) => {
-          setCategoryId(Number(value));
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          setCategoryId(Number(e.target.value));
         }}
       >
         {mainCategories?.map((item) => (
           <div className="flex items-center gap-3" key={item.id}>
-            <RadioGroupItem value={String(item.id)} id={String(item.id)} />
+            <input
+              type="radio"
+              value={String(item.id)}
+              id={String(item.id)}
+              name="category"
+              className="radio radio-primary"
+            />
             <label htmlFor={String(item.id)}>{item.name}</label>
           </div>
         ))}
-      </RadioGroup>
+      </div>
       <div className="h-[1px] w-full bg-gray-300"></div>
       <h1 className="bold text-xl">서브 카테고리 추가</h1>
       <div className="flex flex-col gap-4">

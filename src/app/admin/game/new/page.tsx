@@ -1,7 +1,5 @@
 'use client';
 import styles from './page.module.scss';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Checkbox } from '@/components/ui/checkbox';
 import { GAME_TYPE_RADIO_ITEMS } from '@/shared/constants/game';
 import React, { useState } from 'react';
 import { GameBase, GameStorageData, GameType } from '@/shared/types/game';
@@ -84,18 +82,25 @@ export default function AdminNewGamePage() {
 
       {/* 게임 타입 */}
       {/* TODO: 게임 타입 선택 컴포넌트 분리할 지 선택하기 */}
-      <RadioGroup
-        defaultValue={gameType}
+      <div
         className="flex"
-        onValueChange={(value: GameType) => setGameType(value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setGameType(e.target.value as GameType)
+        }
       >
         {GAME_TYPE_RADIO_ITEMS.map((item) => (
           <div className="flex items-center gap-3" key={item.value}>
-            <RadioGroupItem value={item.value} id={item.value} />
+            <input
+              type="radio"
+              className="radio radio-primary"
+              name="gameType"
+              value={item.value}
+              id={item.value}
+            />
             <label htmlFor={item.value}>{item.label}</label>
           </div>
         ))}
-      </RadioGroup>
+      </div>
 
       {/* 게임 파일 */}
       <input type="file" onChange={handleGameFileChange} />
@@ -154,20 +159,26 @@ export default function AdminNewGamePage() {
           </div>
           {/* 게임 활성화 여부 */}
           <div className="flex items-center gap-3">
-            <Checkbox
+            <input
+              type="checkbox"
               id="isActive"
               defaultChecked
               checked={isActive}
-              onCheckedChange={(checked: boolean) => setIsActive(checked)}
+              className="checkbox"
+              onChange={() => setIsActive((prev) => !prev)}
             />
             <label htmlFor="isActive">활성화</label>
           </div>
           {/* 게임 추천 여부 */}
           <div className="flex items-center gap-3">
-            <Checkbox
+            <input
+              type="checkbox"
               id="isFeatured"
+              className="checkbox"
               checked={isFeatured}
-              onCheckedChange={(checked: boolean) => setIsFeatured(checked)}
+              onChange={() => {
+                setIsFeatured((prev) => !prev);
+              }}
             />
             <label htmlFor="isFeatured">추천</label>
           </div>

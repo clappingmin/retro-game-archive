@@ -5,8 +5,6 @@
 
   .title {
     margin-bottom: 10px;
-    font-size: $font-h5;
-    font-weight: $font-bold;
   }
 
   .formContainer {
@@ -16,7 +14,6 @@
     .thumbnailWrapper {
       flex: 0 0 400px;
       aspect-ratio: 16/9;
-      border: 1px solid $gray-700;
 
       label {
         display: block;
