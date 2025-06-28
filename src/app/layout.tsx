@@ -1,6 +1,4 @@
 import type { Metadata } from 'next';
-import 'reset-css';
-import '@/styles/globals.scss';
 import '@/styles/global.css';
 
 import Header from '@/components/global/Header';
