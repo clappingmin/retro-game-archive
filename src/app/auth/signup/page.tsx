@@ -1,6 +1,5 @@
 'use client';
 
-import { Input } from '@/components/ui/input';
 import { useEffect, useState } from 'react';
 import * as api from '@/shared/services/app/auth';
 import { SignupInput } from '@/shared/types/user';
@@ -43,19 +42,22 @@ export default function SignupPage() {
 
   return (
     <div>
-      <Input
+      <input
+        className="input"
         placeholder="닉네임"
         value={nickname}
         onChange={(e) => setNickname(e.target.value)}
         type="text"
       />
-      <Input
+      <input
+        className="input"
         placeholder="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         type="email"
       />
-      <Input
+      <input
+        className="input"
         placeholder="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}

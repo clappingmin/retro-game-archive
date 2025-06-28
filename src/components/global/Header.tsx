@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import * as api from '@/shared/services/app/auth';
 import { useUserStore } from '@/shared/store/user';
@@ -38,7 +37,7 @@ export default function Header() {
         <Link href={'/'}>
           <h1 className="whitespace-nowrap text-2xl font-bold">플래시니티</h1>
         </Link>
-        <Input className="max-w-xs" />
+        <input className="input max-w-xs" type="text" />
         <div className="flex items-center gap-2">
           {isLoggedIn ? (
             <button onClick={handleLogout}>Log out</button>

@@ -1,6 +1,5 @@
 'use client';
 
-import { Input } from '@/components/ui/input';
 import { useEffect, useState } from 'react';
 import * as api from '@/shared/services/app/auth';
 import { LoginInput } from '@/shared/types/user';
@@ -38,13 +37,15 @@ export default function LoginPage() {
 
   return (
     <div>
-      <Input
+      <input
+        className="input"
         placeholder="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         type="email"
       />
-      <Input
+      <input
+        className="input"
         placeholder="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}

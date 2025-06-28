@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import * as api from '@/shared/services/admin/category';
 import { GameCategory, GameSubcategory } from '@/shared/types/game';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator } from '../ui/breadcrumb';
 
 type Props = {
   onChange?: (payload: { categoryIds: number[]; subcategoryIds: number[] }) => void;
@@ -62,24 +61,24 @@ export default function CategorySelector({ onChange }: Props) {
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 bg-red-200">
       {categories.map((category: GameCategory) => (
-        <Breadcrumb key={category.id}>
-          <BreadcrumbList className="items-start">
-            <BreadcrumbItem
-              className={`cursor-pointer rounded-sm px-2 py-1 ${categoryIds.includes(category.id!) && 'bg-yellow-200'}`}
+        <div className="breadcrumbs text-sm" key={category.id}>
+          <ul>
+            <li
+              className={`cursor-pointer rounded-sm bg-gray-200 px-2 py-1 ${categoryIds.includes(category.id!) && 'bg-yellow-200'}`}
               onClick={() => {
                 handleClickCategory(category.id!);
               }}
             >
               {category.name}
-            </BreadcrumbItem>
+            </li>
+            {/* 서브카테고리 */}
             {subcategoryMap?.get(category.id!) && (
-              <div className="flex flex-col items-center gap-4">
-                {subcategoryMap?.get(category.id!)?.map((subcategory) => (
-                  <div className="flex w-full items-center gap-4" key={subcategory.id!}>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem
+              <li>
+                <div className="flex flex-col">
+                  {subcategoryMap?.get(category.id!)?.map((subcategory) => (
+                    <div
                       key={subcategory.id}
                       className={`cursor-pointer rounded-sm border-gray-400 bg-gray-200 px-2 py-1 ${subcategoryIds.includes(subcategory.id!) && 'bg-yellow-200'}`}
                       onClick={() => {
@@ -87,13 +86,13 @@ export default function CategorySelector({ onChange }: Props) {
                       }}
                     >
                       {subcategory.name}
-                    </BreadcrumbItem>
-                  </div>
-                ))}
-              </div>
+                    </div>
+                  ))}
+                </div>
+              </li>
             )}
-          </BreadcrumbList>
-        </Breadcrumb>
+          </ul>
+        </div>
       ))}
     </div>
   );
