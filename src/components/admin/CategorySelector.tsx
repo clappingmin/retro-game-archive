@@ -3,19 +3,7 @@
 import { useEffect, useState } from 'react';
 import * as api from '@/shared/services/admin/category';
 import { GameCategory, GameSubcategory } from '@/shared/types/game';
-import {
-  Breadcrumb,
-  BreadcrumbEllipsis,
-  BreadcrumbItem,
-  BreadcrumbList,
-  BreadcrumbSeparator,
-} from '../ui/breadcrumb';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@radix-ui/react-dropdown-menu';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator } from '../ui/breadcrumb';
 
 type Props = {
   onChange?: (payload: { categoryIds: number[]; subcategoryIds: number[] }) => void;
