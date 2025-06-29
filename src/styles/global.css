@@ -10,5 +10,9 @@
     .layout {
       @apply mx-auto w-full max-w-[1080px] px-6;
     }
+
+    .list {
+      @apply grid grid-cols-[repeat(auto-fill,_minmax(200px,1fr))] gap-4;
+    }
   }
 }
