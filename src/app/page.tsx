@@ -2,8 +2,9 @@ import * as api from '@/shared/services/app/game';
 
 export default async function Home() {
   const recommendedGames = await api.getRecommendedGames();
+  const recetGames = await api.getRecentGames();
 
-  console.log(recommendedGames);
+  console.log(recetGames);
 
   return (
     <div>
