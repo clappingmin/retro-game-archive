@@ -16,7 +16,7 @@ export default function GameCard({ game }: GameCardProps) {
         <div className="card-actions justify-between">
           <div className="badge badge-soft badge-primary">{game.company}</div>
           <div className="flex items-center gap-1">
-            <span className="material-icons-round text-secondary">visibility</span>
+            <span className="material-icons-outlined text-primary">visibility</span>
             <div className="leading-[100%]">{game.viewCount}</div>
           </div>
         </div>
