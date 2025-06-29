@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import './fonts.css';
+@import 'material-icons/iconfont/material-icons.css';
 @plugin "daisyui";
 
 @layer base {

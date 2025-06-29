@@ -1,3 +1,4 @@
+import GameCard from '@/components/global/GameCard';
 import * as api from '@/shared/services/app/game';
 
 export default async function Home() {
@@ -8,15 +9,24 @@ export default async function Home() {
 
   return (
     <div>
-      <h1 className="bg-red-300">랜딩페이지</h1>
-      <button className="btn btn-neutral">Neutral</button>
-      <button className="btn btn-primary">Primary</button>
-      <button className="btn btn-secondary">Secondary</button>
-      <button className="btn btn-accent">Accent</button>
-      <button className="btn btn-info">Info</button>
-      <button className="btn btn-success">Success</button>
-      <button className="btn btn-warning">Warning</button>
-      <button className="btn btn-error">Error</button>
+      {/* 최근 게임 */}
+      <div></div>
+      {/* 추천 게임 */}
+      <div>추천 게임</div>
+      <div className="grid grid-cols-[repeat(auto-fill,_minmax(200px,1fr))] gap-4">
+        {recommendedGames.map((game) => (
+          <GameCard game={game} />
+        ))}
+        {recommendedGames.map((game) => (
+          <GameCard game={game} />
+        ))}
+        {recommendedGames.map((game) => (
+          <GameCard game={game} />
+        ))}
+        {recommendedGames.map((game) => (
+          <GameCard game={game} />
+        ))}
+      </div>
     </div>
   );
 }
