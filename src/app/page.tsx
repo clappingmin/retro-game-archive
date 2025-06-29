@@ -1,4 +1,10 @@
-export default function Home() {
+import * as api from '@/shared/services/app/game';
+
+export default async function Home() {
+  const recommendedGames = await api.getRecommendedGames();
+
+  console.log(recommendedGames);
+
   return (
     <div>
       <h1 className="bg-red-300">랜딩페이지</h1>
